@@ -10,58 +10,56 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.Timestamp;
 
 /**
- * Created by fandexian on 16/4/9.
+ * Created by fandexian on 16/4/13.
  */
-@WebServlet(name = "Login")
-public class login extends HttpServlet {
+@WebServlet(name = "addCollect")
+public class addCollect extends HttpServlet {
+    private int userId,goodsId;
+    private Timestamp timestamp;
 
-    private String userPhone,userPassword,sql;
+    private String sqlUpdate;
+
     private PrintWriter printWriter;
     private JSONObject jsonObject;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        userPhone = request.getParameter("userPhone");
-        userPassword = request.getParameter("userPassword");
+        userId = Integer.parseInt(request.getParameter("userId"));
+        goodsId = Integer.parseInt(request.getParameter("goodsId"));
+        timestamp = new Timestamp(System.currentTimeMillis());
+        sqlUpdate = "insert into Collects values(?,?,?)";
+
+        jsonObject = new JSONObject();
         response.setContentType("text/html;charset=utf-8");
         printWriter = response.getWriter();
-        sql = "SELECT userPassword FROM UserInfo WHERE userPhone="+userPhone;
-        jsonObject = new JSONObject();
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection connection = DriverManager.getConnection(Constants.URL,Constants.USER,Constants.PASSWORD);
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            if(resultSet.next()){
-                if(resultSet.getString("userPassword").equals(userPassword)){
-
-                    jsonObject.put("message","登录成功!");
-                    jsonObject.put("status","1");
-                }else {
-
-                    jsonObject.put("message","密码错误!");
-                    jsonObject.put("status","0");
-                }
-
+            PreparedStatement statement = connection.prepareStatement(sqlUpdate);
+            statement.setInt(1,userId);
+            statement.setInt(2,goodsId);
+            statement.setTimestamp(3,timestamp);
+            int i = statement.executeUpdate();
+            if(i>0){
+                jsonObject.put("message","收藏成功!");
+                jsonObject.put("status","1");
             }else {
-
-                jsonObject.put("message","用户未注册!");
+                jsonObject.put("message","收藏失败!");
                 jsonObject.put("status","0");
             }
             printWriter.print(jsonObject);
 
-            resultSet.close();
+            //关闭资源
             statement.close();
             connection.close();
 
-
         } catch (Exception e) {
-            //e.printStackTrace();
-            printWriter.print("exception!");
+            e.printStackTrace();
+
         }
 
     }

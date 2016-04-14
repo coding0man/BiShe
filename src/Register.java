@@ -15,7 +15,7 @@ import org.json.JSONObject;
  * Created by fandexian on 16/4/9.
  */
 @WebServlet(name = "Register")
-public class Register extends HttpServlet {
+public class register extends HttpServlet {
 
     private String userPhone,nickName,userPassword;
     private String sql;

@@ -1,9 +1,7 @@
-import Beans.UserInfo;
+import Beans.T_UserInfo;
 import Utils.Constants;
 import Utils.JsonHelper;
-import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONString;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,8 +14,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by fandexian on 16/4/11.
@@ -43,7 +39,7 @@ public class getUserInfo extends HttpServlet {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             if(resultSet.next()){
-                UserInfo userInfo = new UserInfo();
+                T_UserInfo userInfo = new T_UserInfo();
 
                 userInfo.setUserId(resultSet.getInt("userId"));
                 userInfo.setUserPhone(resultSet.getString("userPhone"));
@@ -65,7 +61,7 @@ public class getUserInfo extends HttpServlet {
 
             }else {
 
-                jsonObject.put("message","获取信息注册!");
+                jsonObject.put("message","获取信息失败!");
                 jsonObject.put("status","0");
             }
             printWriter.print(jsonObject);

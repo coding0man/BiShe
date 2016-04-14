@@ -3,7 +3,7 @@ package Beans;
 /**
  * Created by fandexian on 16/4/11.
  */
-public class UserInfo {
+public class T_UserInfo {
     private int userId;
     private String userPhone;
     private String nickName;
@@ -15,7 +15,7 @@ public class UserInfo {
     private String  userDepartment;
     private String stuNumber;
 
-    public UserInfo() {
+    public T_UserInfo() {
     }
 
     public int getUserId() {

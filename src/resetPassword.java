@@ -14,7 +14,7 @@ import java.sql.*;
  * Created by fandexian on 16/4/9.
  */
 @WebServlet(name = "ForgetPassword")
-public class ForgetPassword extends HttpServlet {
+public class resetPassword extends HttpServlet {
     private String userPhone,newPassword;
     private String sqlPhoneisRegistered,sqlupdatePsd;
     private PrintWriter printWriter;

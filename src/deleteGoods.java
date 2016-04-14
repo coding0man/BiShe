@@ -1,4 +1,5 @@
 import Utils.Constants;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -10,60 +11,47 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.PreparedStatement;
 
 /**
- * Created by fandexian on 16/4/9.
+ * Created by fandexian on 16/4/14.
  */
-@WebServlet(name = "Login")
-public class login extends HttpServlet {
-
-    private String userPhone,userPassword,sql;
+@WebServlet(name = "deleteGoods")
+public class deleteGoods extends HttpServlet {
+    private int goodsId;
+    private String sqlUpdate;
     private PrintWriter printWriter;
     private JSONObject jsonObject;
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        userPhone = request.getParameter("userPhone");
-        userPassword = request.getParameter("userPassword");
+        goodsId = Integer.parseInt(request.getParameter("goodsId"));
+        sqlUpdate = "delete from GoodsInfo where goodsId=?";
+
+        jsonObject = new JSONObject();
         response.setContentType("text/html;charset=utf-8");
         printWriter = response.getWriter();
-        sql = "SELECT userPassword FROM UserInfo WHERE userPhone="+userPhone;
-        jsonObject = new JSONObject();
-
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection connection = DriverManager.getConnection(Constants.URL,Constants.USER,Constants.PASSWORD);
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            if(resultSet.next()){
-                if(resultSet.getString("userPassword").equals(userPassword)){
-
-                    jsonObject.put("message","登录成功!");
-                    jsonObject.put("status","1");
-                }else {
-
-                    jsonObject.put("message","密码错误!");
-                    jsonObject.put("status","0");
-                }
-
+            PreparedStatement statement = connection.prepareStatement(sqlUpdate);
+            statement.setInt(1,goodsId);
+            int i = statement.executeUpdate();
+            if(i>0){
+                jsonObject.put("message","删除成功!");
+                jsonObject.put("status","1");
             }else {
-
-                jsonObject.put("message","用户未注册!");
+                jsonObject.put("message","删除失败!");
                 jsonObject.put("status","0");
             }
             printWriter.print(jsonObject);
 
-            resultSet.close();
+            //关闭资源
             statement.close();
             connection.close();
 
-
         } catch (Exception e) {
-            //e.printStackTrace();
-            printWriter.print("exception!");
-        }
+            e.printStackTrace();
 
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

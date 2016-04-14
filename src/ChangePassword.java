@@ -14,7 +14,7 @@ import java.sql.*;
  * Created by fandexian on 16/4/9.
  */
 @WebServlet(name = "ChangePassword")
-public class ChangePassword extends HttpServlet {
+public class changePassword extends HttpServlet {
     //有问题
 
     private String userPhone,newPassword,userPassword;
