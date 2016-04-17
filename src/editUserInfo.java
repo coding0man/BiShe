@@ -60,6 +60,9 @@ public class editUserInfo extends HttpServlet {
                 jsonObject.put("status",0);
             }
             printWriter.print(jsonObject);
+            //关闭资源
+            preparedStatement.close();
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -29,6 +29,7 @@ public class getUserInfo extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         userPhone = request.getParameter("userPhone");
         sql = "SELECT * from UserInfo where userPhone="+userPhone;
+        //sql = "SELECT * from UserInfo where userPhone='18013116680'";
         response.setContentType("text/html;charset=utf-8");
         printWriter =response.getWriter();
         jsonObject = new JSONObject();
@@ -54,7 +55,7 @@ public class getUserInfo extends HttpServlet {
 
                 JSONObject userInfos = JsonHelper.toJSON(userInfo);
 
-                jsonObject.put("userinfo",userInfos);
+                jsonObject.put("data",userInfos);
 
                 jsonObject.put("message","获取信息成功!");
                 jsonObject.put("status","1");
@@ -64,7 +65,7 @@ public class getUserInfo extends HttpServlet {
                 jsonObject.put("message","获取信息失败!");
                 jsonObject.put("status","0");
             }
-            printWriter.print(jsonObject);
+            printWriter.print(jsonObject.toString());
 
             //关闭资源
             resultSet.close();

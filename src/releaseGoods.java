@@ -31,11 +31,10 @@ public class releaseGoods extends HttpServlet {
         releaseGoods.setUserPhone(request.getParameter("userPhone"));
         releaseGoods.setGoodsCampus(request.getParameter("goodsCampus"));
         releaseGoods.setGoodsName(request.getParameter("goodsName"));
-        releaseGoods.setReleaseTime(Timestamp.valueOf(request.getParameter("releaseTime")));
-        releaseGoods.setSoldDate(Timestamp.valueOf(request.getParameter("soldDate")));
+        releaseGoods.setReleaseTime(new Timestamp(System.currentTimeMillis()));
         releaseGoods.setGoodsPrice(Float.parseFloat(request.getParameter("goodsPrice")));
         releaseGoods.setGoodsDescription(request.getParameter("goodsDescription"));
-        releaseGoods.setGoodsStatus(Integer.parseInt(request.getParameter("goodsStatus")));
+        releaseGoods.setGoodsStatus(1);
         releaseGoods.setMinorCategoryId(Integer.parseInt(request.getParameter("minorCategoryId")));
         releaseGoods.setTradeAddress(request.getParameter("tradeAddress"));
         releaseGoods.setContactTel(request.getParameter("contactTel"));
@@ -51,8 +50,8 @@ public class releaseGoods extends HttpServlet {
 
         jsonObject = new JSONObject();
 
-        insertGoods = "insert into GoodsInfo(userPhone,goodsCampus,goodsName,releaseTime,soldDate,goodsPrice,goodsDescription,goodsStatus,minorCategoryId,tradeAddress,contactTel,contactQq,contactWeChat,goodsImg1,goodsImg2,goodsImg3,goodsImg4) " +
-                "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        insertGoods = "insert into GoodsInfo(userPhone,goodsCampus,goodsName,releaseTime,goodsPrice,goodsDescription,goodsStatus,minorCategoryId,tradeAddress,contactTel,contactQq,contactWeChat,goodsImg1,goodsImg2,goodsImg3,goodsImg4) " +
+                "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -62,19 +61,18 @@ public class releaseGoods extends HttpServlet {
             statement.setString(2,releaseGoods.getGoodsCampus());
             statement.setString(3,releaseGoods.getGoodsName());
             statement.setTimestamp(4,releaseGoods.getReleaseTime());
-            statement.setTimestamp(5,releaseGoods.getSoldDate());
-            statement.setFloat(6,releaseGoods.getGoodsPrice());
-            statement.setString(7,releaseGoods.getGoodsDescription());
-            statement.setInt(8,releaseGoods.getGoodsStatus());
-            statement.setInt(9,releaseGoods.getMinorCategoryId());
-            statement.setString(10,releaseGoods.getTradeAddress());
-            statement.setString(11,releaseGoods.getContactTel());
-            statement.setString(12,releaseGoods.getContactQq());
-            statement.setString(13,releaseGoods.getContactWeChat());
-            statement.setString(14,releaseGoods.getGoodsImg1());
-            statement.setString(15,releaseGoods.getGoodsImg2());
-            statement.setString(16,releaseGoods.getGoodsImg3());
-            statement.setString(17,releaseGoods.getGoodsImg4());
+            statement.setFloat(5,releaseGoods.getGoodsPrice());
+            statement.setString(6,releaseGoods.getGoodsDescription());
+            statement.setInt(7,releaseGoods.getGoodsStatus());
+            statement.setInt(8,releaseGoods.getMinorCategoryId());
+            statement.setString(9,releaseGoods.getTradeAddress());
+            statement.setString(10,releaseGoods.getContactTel());
+            statement.setString(11,releaseGoods.getContactQq());
+            statement.setString(12,releaseGoods.getContactWeChat());
+            statement.setString(13,releaseGoods.getGoodsImg1());
+            statement.setString(14,releaseGoods.getGoodsImg2());
+            statement.setString(15,releaseGoods.getGoodsImg3());
+            statement.setString(16,releaseGoods.getGoodsImg4());
 
             int i = statement.executeUpdate();
 

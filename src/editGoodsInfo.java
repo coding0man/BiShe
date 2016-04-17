@@ -28,16 +28,12 @@ public class editGoodsInfo extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         releaseGoods = new T_GoodsDetail();
-
         goodsId = Integer.parseInt(request.getParameter("goodsId"));
         releaseGoods.setUserPhone(request.getParameter("userPhone"));
         releaseGoods.setGoodsCampus(request.getParameter("goodsCampus"));
         releaseGoods.setGoodsName(request.getParameter("goodsName"));
-        releaseGoods.setReleaseTime(Timestamp.valueOf(request.getParameter("releaseTime")));
-        releaseGoods.setSoldDate(Timestamp.valueOf(request.getParameter("soldDate")));
         releaseGoods.setGoodsPrice(Float.parseFloat(request.getParameter("goodsPrice")));
         releaseGoods.setGoodsDescription(request.getParameter("goodsDescription"));
-        releaseGoods.setGoodsStatus(Integer.parseInt(request.getParameter("goodsStatus")));
         releaseGoods.setMinorCategoryId(Integer.parseInt(request.getParameter("minorCategoryId")));
         releaseGoods.setTradeAddress(request.getParameter("tradeAddress"));
         releaseGoods.setContactTel(request.getParameter("contactTel"));
@@ -53,7 +49,7 @@ public class editGoodsInfo extends HttpServlet {
 
         jsonObject = new JSONObject();
 
-        insertGoods = "UPDATE GoodsInfo SET userPhone=?,goodsCampus=?,goodsName=?," +
+        insertGoods = "UPDATE GoodsInfo SET goodsCampus=?,goodsName=?," +
                 "goodsPrice=?,goodsDescription=?,goodsStatus=?,minorCategoryId=?," +
                 "tradeAddress=?,contactTel=?,contactQq=?,contactWeChat=?,goodsImg1=?," +
                 "goodsImg2=?,goodsImg3=?,goodsImg4=? WHERE goodsId=?";
@@ -63,22 +59,21 @@ public class editGoodsInfo extends HttpServlet {
             Connection connection = DriverManager.getConnection(Constants.URL,Constants.USER,Constants.PASSWORD);
             PreparedStatement statement = connection.prepareStatement(insertGoods);
 
-            statement.setString(1,releaseGoods.getUserPhone());
-            statement.setString(2,releaseGoods.getGoodsCampus());
-            statement.setString(3,releaseGoods.getGoodsName());
-            statement.setFloat(4,releaseGoods.getGoodsPrice());
-            statement.setString(5,releaseGoods.getGoodsDescription());
-            statement.setInt(6,releaseGoods.getGoodsStatus());
-            statement.setInt(7,releaseGoods.getMinorCategoryId());
-            statement.setString(8,releaseGoods.getTradeAddress());
-            statement.setString(9,releaseGoods.getContactTel());
-            statement.setString(10,releaseGoods.getContactQq());
-            statement.setString(11,releaseGoods.getContactWeChat());
-            statement.setString(12,releaseGoods.getGoodsImg1());
-            statement.setString(13,releaseGoods.getGoodsImg2());
-            statement.setString(14,releaseGoods.getGoodsImg3());
-            statement.setString(15,releaseGoods.getGoodsImg4());
-            statement.setInt(16,goodsId);
+            statement.setString(1,releaseGoods.getGoodsCampus());
+            statement.setString(2,releaseGoods.getGoodsName());
+            statement.setFloat(3,releaseGoods.getGoodsPrice());
+            statement.setString(4,releaseGoods.getGoodsDescription());
+            statement.setInt(5,releaseGoods.getGoodsStatus());
+            statement.setInt(6,releaseGoods.getMinorCategoryId());
+            statement.setString(7,releaseGoods.getTradeAddress());
+            statement.setString(8,releaseGoods.getContactTel());
+            statement.setString(9,releaseGoods.getContactQq());
+            statement.setString(10,releaseGoods.getContactWeChat());
+            statement.setString(11,releaseGoods.getGoodsImg1());
+            statement.setString(12,releaseGoods.getGoodsImg2());
+            statement.setString(13,releaseGoods.getGoodsImg3());
+            statement.setString(14,releaseGoods.getGoodsImg4());
+            statement.setInt(15,goodsId);
 
             int i = statement.executeUpdate();
 

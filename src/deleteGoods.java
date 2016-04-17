@@ -36,10 +36,10 @@ public class deleteGoods extends HttpServlet {
             statement.setInt(1,goodsId);
             int i = statement.executeUpdate();
             if(i>0){
-                jsonObject.put("message","删除成功!");
+                jsonObject.put("message","删除商品成功!");
                 jsonObject.put("status","1");
             }else {
-                jsonObject.put("message","删除失败!");
+                jsonObject.put("message","删除商品失败!");
                 jsonObject.put("status","0");
             }
             printWriter.print(jsonObject);

@@ -70,6 +70,9 @@ public class getGoodsDetail extends HttpServlet {
                 jsonObject.put("status",0);
             }
             printWriter.print(jsonObject);
+            //关闭资源
+            statement.close();
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
