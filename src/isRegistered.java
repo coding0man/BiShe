@@ -39,11 +39,13 @@ public class isRegistered extends HttpServlet {
             if(resultSet.next()){
 
                 jsonObject.put("message","用户已注册!");
+                jsonObject.put("userPhone",userPhone);
                 jsonObject.put("status","1");
 
             }else {
 
                 jsonObject.put("message","用户未注册!");
+                jsonObject.put("userPhone",userPhone);
                 jsonObject.put("status","0");
             }
             printWriter.print(jsonObject);

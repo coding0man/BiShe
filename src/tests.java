@@ -8,54 +8,45 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Created by fandexian on 16/4/13.
  */
-@WebServlet(name = "tests")
 public class tests extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        JSONObject o = new JSONObject();
-
-        JSONObject o1= new JSONObject();
-        JSONObject o2= new JSONObject();
-        JSONObject o3= new JSONObject();
-
-        JSONArray jsonArray = new JSONArray();
-
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         try {
-            o1.put("id",1);
-            o1.put("name","ha");
-
-
-            o2.put("id",2);
-            o2.put("name","haha");
-
-
-            o3.put("id",3);
-            o3.put("name","hahaha");
-
-            jsonArray.put(o1);
-            jsonArray.put(o2);
-
-            o.put("ahahhahah",o3);
-            o.put("data",jsonArray);
-            o.put("message","ok");
-            o.put("status",1);
-
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+            // Write some content
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>MyFirstServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h2>Servlet MyFirstServlet at " + request.getContextPath() + "</h2>");
+            out.println("</body>");
+            out.println("</html>");
+        } finally {
+            out.close();
         }
-
-        response.getWriter().print(o.toString());
-
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        try {
+            // Write some content
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>MyFirstServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h2>Servlet MyFirstServlet at " + request.getContextPath() + "</h2>");
+            out.println("</body>");
+            out.println("</html>");
+        } finally {
+            out.close();
+        }
     }
 }

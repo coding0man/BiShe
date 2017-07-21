@@ -16,8 +16,6 @@
     </servlet-mapping>
 
 
-
-
     <!--判断是否注册-->
     <servlet>
         <servlet-name>isRegistered</servlet-name>
@@ -190,7 +188,5 @@
         <servlet-name>getMyCollects</servlet-name>
         <url-pattern>/api/getMyCollects</url-pattern>
     </servlet-mapping>
-
-
 
 </web-app>
